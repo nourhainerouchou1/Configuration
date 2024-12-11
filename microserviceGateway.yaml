@@ -1,21 +1,22 @@
 eureka:
-   client:
-      serviceUrl: 
-         defaultZone : http://9093/eureka
+  client:
+    serviceUrl:
+      defaultZone: http://9093/eureka
+
 spring:
   cloud:
-    gateway: 
-       routes :
-         -id : microservice-user
-          uri : lb://microserviceuser 
-          predicates :
-            -Path = /utilisateur/**
-          filter:
-            -RewritePath= /utilisateur/(?<Path>.*), /$\{path }
-
-          -id : microservice-projet
-          uri : lb://microserviceprojet 
-          predicates :
-            -Path = /projet/**
-          filter:
-            -RewritePath= /projet/(?<Path>.*), /$\{path }
+    gateway:
+      routes:
+        - id: microservice-user
+          uri: lb://microserviceuser
+          predicates:
+            - Path=/utilisateur/**
+          filters:
+            - RewritePath=/utilisateur/(?<path>.*), /$\{path}
+        
+        - id: microservice-projet
+          uri: lb://microserviceprojet
+          predicates:
+            - Path=/projet/**
+          filters:
+            - RewritePath=/projet/(?<path>.*), /$\{path}
